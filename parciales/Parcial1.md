@@ -10,7 +10,7 @@
 	IDENT_LIST 	→ IDENT , IDENT_LIST | IDENT
 	TYPE 		→ INTEGER | REAL | STRING
 	
-1. Verificar si la gramatica propuestapuede ser simplificada. Justificar paso a paso
+1. Verificar si la gramatica propuesta puede ser simplificada. Justificar paso a paso
 2. Si la respuesta del punto anterior es positiva, simplificar la gramatica. Justificar
 3. Calcular los conjuntos FIRST y FOLLOW para todos los no terminales.
 4. Construye la tabla LL(1) completa (presentarla como matriz o lista de entradas). Marca explicitamente si aparecen entradas vacias (ɛ).
@@ -18,6 +18,8 @@
 6. indica la pila, la entrada restante y la produccion aplicada en cada paso. Muestra el arbol sintactico final
 
 <font color="green">**Solucion**</font>
+
+1. 
 
 ## Ejercicio 2
 
@@ -74,19 +76,37 @@ Dada la siguiente gramatica clasica para expresiones
 
 Considere el siguiente fragmento de un lenguaje de control de flujo tipo Eiffel
 
-	if cond then stmt else stmt
+	if <Cond> then <Stmt> else <Stmt>
 
 o bien
 
-	if cond then if cond then stmt else stmt
+	if <Cond> then if <Cond> then <Stmt> else <Stmt>
 
 sabemos que ese tipo de construcciones presentan ambiguedad
 
 1. Definir una gramatica ambigua minima para que defina el fragmento propuesto
 2. Contruir ambos arboles de derivacion para la cadena
 	```
-		if cond then if cond then stmt else stmt
+		if <Cond> then if <Cond> then <Stmt> else <Stmt>
 	```
 	Explicar paso a paso las producciones aplicadas que llevan a interpretaciones distintas
 
 <font color="green">**Solucion**</font>
+
+1. Definir una gramatica ambigua minima para que defina el fragmento propuesto
+
+	```
+		instr → if <expr> then <instr>
+				| if <expr> then <instr> else <instr>
+				| <otra> 
+		expr → ...
+	```
+
+
+2. Contruir ambos arboles de derivacion para la cadena
+
+	![Ejercicio 4.2](./assets/e4-2.drawio.svg)
+
+	Derivacion 1: **instr** ⇒ if expr then **instr** ⇒ if expr then **instr** ⇒ if expr then if expr then instr else instr
+
+	Derivacion 2: **instr** ⇒ if expr then **instr** else instr ⇒ if expr then **instr** else instr ⇒ if expr then if expr then instr else Stmt

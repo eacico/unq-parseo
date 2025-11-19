@@ -114,14 +114,295 @@ Notas:
 
 ## Bottom-Up
 
+	Shift
+		Cuando leo un caracter de la entrada
+	Reduce
+		Cuando transformo la cadena procesada aplicando una produccion que la defina
+
+Ej: Usar el algoritmo para el analisis sintactico ascendente con la gramatica G=({E,T,F},{+,*,n,(,)},P,E):
+```
+	E → T | E + T
+	T → F | T * F
+	F → n | (E) 
+```
+para la entrada `n*n+n`
+
+| Pila | Entrada |  |
+| :-------- | ------------: | :---- |
+|  | `n*n+n` | Shift |
+| `n` | `*n+n` | Reduce |
+| `F` | `*n+n` | Reduce |
+| `T` | `*n+n` | Shift |
+| `T*` | `n+n` | Shift |
+| `T*n` | `+n` | Reduce |
+| `T*F` | `+n` | Reduce |
+| `T` | `+n` | Reduce |
+| `E` | `+n` | Shift |
+| `E+` | `n` | Shift |
+| `E+n` | `$` | Reduce |
+| `E+F` | `$` | Reduce |
+| `E+T` | `$` | Reduce |
+| `E` | `$` | Accept |
+
 ## LR(0)
 
-## Construcción de la tabla ACTION/GOTO
+### Closure
+
+Ej: 
+```
+	E' → E$
+	E → T | E + T
+	T → n | (E) 
+```
+
+
+```
+	I 		= { E' → •E$ }
+	I' 		= { E' → •E$ , E → •T , E → •E + T}
+	I'' 	= { E' → •E$ , E → •T , E → •E + T , T → •n , T → •(E)}
+	I''' 	= I''
+```
+
+`Clausura (I) = I''`
+
+### AFD para LR(0)
+
+![LR(0)-AFD](./assets/LR(0)-AFD.drawio.svg)
+
+### tabla ACTION/GOTO
+
+|   | GOTO       ||| ACTION             |||||
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|   | E' | E | T | n         | +  | (  | )  | $  |
+| 1 |    | 2 | 9 | S6        | | S5 |  |  |
+| 2 |    |   |   |           | S3 |  |  | ACCEPT |
+| 3 |    |   | 4 | S6        |  | S5 |  |  |
+| 4 |    |   |   | E → E + T | E → E + T | E → E + T | E → E + T | E → E + T |
+| 5 |    | 7 |   | S6        | S9 | S5 |  |  |
+| 6 |    |   |   | T → n     | T → n | T → n | T → n | T → n |
+| 7 |    |   |   |           |  |  | S8 |  |
+| 8 |    |   |   | T → (E)   | T → (E) | T → (E) | T → (E) | T → (E) |
+| 9 |    |   |   | E → T     | E → T | E → T | E → T | E → T |
+
+Es LR(0) porque no hay conflictos (mas de una produccion por celda)
+
+Conflicto Reduce/Reduce
+
+![LR(0)-conflicto-reduce-reduce](./assets/LR(0)-conflicto-reduce-reduce.png)
+
+Conflicto Shift/Reduce
+
+![LR(0)-conflicto-reduce-reduce](./assets/LR(0)-conflicto-shift-reduce.png)
+
+Uso de la tabla para armar la pila
+
+![LR(0)-conflicto-reduce-reduce](./assets/LR(0)-uso-tabla.png)
 
 ## Intérpretes (store passing y evaluación)
 
+![Interpretes-ej](./assets/Interpretes-ej.png)
+
+### Forma Directa
+
+```python
+env = {}
+
+def eval_stmt(stmt):
+	if stmt["type"] == "assign":
+		env[stmt["var"]] = eval_expr(stmt["expr"])
+	elif stmt["type"] == "print":
+		print(eval_expr(stmt["expr"]))
+
+def eval_expr(expr):
+	if expr["type"] == "num":
+		return expr["value"]
+	elif expr["type"] == "var":
+		return env[expr["name"]]
+	elif expr["type"] == "add":
+		return eval_expr(expr["left"]) + eval_expr(expr["right"])
+```
+
+### Store Passing
+
+```python
+class Environment:
+	def __init__(self, parent=None):
+		self.parent = parent
+		self.map = {}
+
+	def lookup(self, name):
+		if name in self.map:
+			return self.map[name]
+		elif self.parent:
+			return self.parent.lookup(name)
+		else:
+			raise RuntimeError(f"Variable '{name}' not defined")
+
+class Store:
+	def __init__(self):
+		self.memory = {}
+		self.next_addr = 0
+
+	def alloc(self, value):
+		addr = self.next_addr
+		self.memory[addr] = value
+		self.next_addr += 1
+		return addr
+
+	def update(self, addr, value):
+		self.memory[addr] = value
+
+	def read(self, addr):
+		return self.memory[addr]
+```
+```python
+def eval_expr(expr, env, store):
+    if expr["type"] == "num":
+        return expr["value"], store
+    elif expr["type"] == "var":
+			addr = env.lookup(expr["name"])
+			val = store.read(addr)
+			return val, store
+    elif expr["type"] == "add":
+			v1, s1 = eval_expr(expr["left"], env, store)
+			v2, s2 = eval_expr(expr["right"], env, s1)
+			return v1 + v2, s2
+
+def eval_stmt(stmt, env, store):
+    if stmt["type"] == "assign":
+			val, s1 = eval_expr(stmt["expr"], env, store)
+			addr = env.lookup(stmt["target"])
+			s1.update(addr, val)
+			return s1
+```
+
+### Continuation-Passing Style - CPS
+
+```python
+def eval_expr(expr, env, k):
+    if expr["type"] == "num":
+        return k(expr["value"])
+    elif expr["type"] == "add":
+			return eval_expr(expr["left"], env, 
+				lambda v1: eval_expr(expr["right"], env,
+					lambda v2: k(v1 + v2)))
+
+def eval_stmt(stmt, env, k):
+    if stmt["type"] == "assign":
+			return eval_expr(stmt["expr"], env,
+				lambda val: k(env.update({stmt["var"]: val})))
+    elif stmt["type"] == "print":
+			return eval_expr(stmt["expr"], env,
+				lambda val: (print(val), k(env))[1])
+```
+
+Ejemplo
+
+```go
+x := 5
+y := x + 1
+print(y)
+```
+```ini
+k0 = λ_. print(y)
+k1 = λ_. y := x + 1; k0()
+k2 = λ_. x := 5; k1()
+```
+
 ## Generación de Código Intermedio
+
+Ejemplo de codigo fuente
+
+```
+c := a + b * 2
+```
+
+**Tres Direcciones** (Three Address Code – TAC) [Libro '6.2 Código de tres direcciones' pagina 389]
+
+Características:
+
+- Cada instrucción usa máximo 3 direcciones:
+>`x = y op z`
+- Introduce temporales.
+
+Ejemplo:
+
+![inf-tipos unificacion](./assets/tac-ej-ast.drawio.svg)
+
+```
+t1 := b
+t2 := 2
+t2 := t1 * t2
+t1 := a
+t1 := t1 + t2
+c  := t1
+```
+
+**Cuádruplas**
+
+```
+(op, arg1, arg2, result)
+
+(*,  b, 2,  t1)
+(+,  a, t1, t2)
+(:=, t2, -,  c)
+```
+
+
+- código intermedio
+- código intermedio con etiquetas y saltos
+- optimización de temporales
+- gramática de atributos
+- notación posfija (postfijo)
+- mini–máquina de tres direcciones
 
 ## Tipos e Inferencia (Algoritmo , unificación)
 
-## Análisis de Flujo de Datos (CFG y Reaching Definitions)
+Reglas de Inferencia
+
+- (Const)
+	> Γ ⊢ 5 : INTEGER
+
+- (BinOp)
+	```
+	Γ ⊢ e1 : INTEGER    Γ ⊢ e2 : REAL
+	----------------------------------
+	Γ ⊢ e1 + e2 : REAL
+	```
+
+![inf-tipos reglas](./assets/inf-tipos-reglas-tipado.png)
+
+![inf-tipos reglas](./assets/inf-tipos-reglas-tipado-ej1.png)
+
+![inf-tipos reglas](./assets/inf-tipos-reglas-tipado-ej2.png)
+
+![inf-tipos reglas](./assets/inf-tipos-reglas-tipado-ej3.png)
+
+inf-tipos unificacion
+
+![inf-tipos unificacion](./assets/inf-tipos-unificacion.png)
+
+![inf-tipos unificacion Ej](./assets/inf-tipos-unificacion-ej.png)
+
+Inferencia de tipos
+
+![inf-tipos](./assets/inf-tipos.png)
+
+![inf-tipos reglas](./assets/inf-tipos-reglas.png)
+
+- Algoritmo de inferencia
+- unificaciones
+- Inferir tipo
+
+## Análisis de Flujo de Datos (CFG(Control Flow Graph) y Reaching Definitions)
+
+- código de tres direcciones
+- bloques básicos
+- grafo de flujo
+- definiciones alcanzables (Reaching Definitions RD)
+- variables vivas  (Live Variables)
+- propagación de constantes
+- formato de conjunto IN/OUT
+- convergencia
+- análisis inverso (hacia atrás) para detectar variables muertas
+- eliminar instrucciones muertas

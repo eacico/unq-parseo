@@ -25,6 +25,8 @@ S → aSbb | ab
    >S  → aSbb | ab
    >```
    >
+   >Genero todos los item clausurando cada produccion con el puntero en cada una de sus posiciones
+   >
    >I<sub>0</sub> = `{ S' → •S$ , S → •aSbb , S → •ab }`\
    >I<sub>1</sub> = `{ S' → S•$ }`\
    >I<sub>2</sub> = `{ S → a•Sbb , S → a•b , S → •aSbb , S → •ab }`\
@@ -32,6 +34,8 @@ S → aSbb | ab
    >I<sub>4</sub> = `{ S → aSb•b }`\
    >I<sub>5</sub> = `{ S → aSbb• }`\
    >I<sub>6</sub> = `{ S → ab• }`
+   >
+   >Armo el Automata Finito Deterministico equivalente con los items generados
    >
    >![LR(0)-FDA](./assets/p2b-b1-e1.drawio.svg)
    >
@@ -48,8 +52,7 @@ S → aSbb | ab
    >| 5 |      | S → aSbb | S → aSbb | S → aSbb |
    >| 6 |      | S → ab   | S → ab   | S → ab   |
    >
-   >Pila
-   >
+   >Uso la tabla para evaluar la entrada dada y dejo los estados en la **Pila**
    >
    >| Pila | Entrada | Accion |
    >| :-------- | ------------: | :---- |
@@ -335,6 +338,11 @@ c := a + b * 2
    >  
    >  Cuádruplos
    >  
+   >  ```
+   >  (*, b, 2, t1)
+   >  (+, a, t1, t2)
+   >  ```
+   >  
    >  | op | arg<sub>1</sub> | arg<sub>2</sub> | result |
    >  |:--:|:--:|:--:|:--:|
    >  | * | b | 2 | t1 |
@@ -393,31 +401,33 @@ a := b * c + d * e
    ><font color="#6564b3">**Solucion**</font>
    >
    >  ```
-   >  E → E1 + T
-   >    | T
-   >  T → T1 * F
-   >    | F
-   >  F → (E)
-   >    | id
    >  S → id := E
+   >  F → (A)
+   >    | (M)
+   >    | id
+   >  A → F + F
+   >    | F
+   >  M → F * F
+   >    | F
    >  ```
    >  
    >  Reglas
    >  
    >  ```
-   >  E → E1 + T
-   >      E.post = E1.post || T.post || '+'
-   >  E → T
-   >      E.post = T.post
+   >  A → F1 + F2
+   >      A.post = F1.post || F2.post || '+'
+   >  A → F
+   >      A.post = F.post
    >  
-   >  T → T1 * F
-   >      T.post = T1.post || F.post || '*'
-   >  T → F
-   >      T.post = F.post
+   >  M → F1 * F2
+   >      M.post = F1.post || F2.post || '*'
+   >  M → F
+   >      M.post = F.post
    >  
-   >  F → (E)
-   >      F.post = E.post
-   >  
+   >  F → (A)
+   >      F.post = A.post
+   >  F → (M)
+   >      F.post = M.post
    >  F → id
    >      F.post = id.lexeme
    >  
@@ -429,15 +439,15 @@ a := b * c + d * e
    >  
    >  Evaluacion:
    >  
-   >  1. 
-   >  2. 
-   >  3. 
+   >  1. `x`
+   >  2. `a`
+   >  3. `b`
    >  4. `a b +`
-   >  5. 
-   >  6. 
-   >  7. 
+   >  5. `a b +`
+   >  6. `c`
+   >  7. `d`
    >  8. `c d +`
-   >  9. 
+   >  9. `c d +`
    >  10. `a b + c d + *`
    >  11. `x a b + c d + * :=`
 

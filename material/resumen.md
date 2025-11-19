@@ -396,9 +396,19 @@ Inferencia de tipos
 
 ## Análisis de Flujo de Datos (CFG(Control Flow Graph) y Reaching Definitions)
 
-- código de tres direcciones
+### Grafo de Flujo
+
+Reglas:
+- Identificar Bloques (Algoritmo de Bloques)
+	- Identificar Lideres
+		1. Una instruccion es un lider
+		2. Las instrucciones inmediatas a un condicional son lider
+		3. La instruccion destino de un condicional es lider
+	- 
+- Sucesores y Predeesores (Precedencia)
+
+Temas:
 - bloques básicos
-- grafo de flujo
 - definiciones alcanzables (Reaching Definitions RD)
 - variables vivas  (Live Variables)
 - propagación de constantes

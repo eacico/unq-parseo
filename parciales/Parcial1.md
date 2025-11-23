@@ -17,9 +17,14 @@
 5. Usando la tabla, muestra el analisis predictivo paso a paso para la cadena (tokens): `class POINT is feature x,y: INTEGER; end`
 6. indica la pila, la entrada restante y la produccion aplicada en cada paso. Muestra el arbol sintactico final
 
-<font color="green">**Solucion**</font>
-
-1. 
+> <font color="#6564b3">**Solucion**</font>
+>
+> 1. 
+> 2. 
+> 3. 
+> 4. 
+> 5. 
+> 6. 
 
 ## Ejercicio 2
 
@@ -52,14 +57,15 @@ Fragmento B:
 
 Para cada fragmento
 
-1. Indicar la secuencia de tokensproducida por el lexerque usa las reglas de la gramatica propuesta.
+1. Indicar la secuencia de tokens producida por el lexerque usa las reglas de la gramatica propuesta.
 2. Indicar si la sintaxis con la gramatica acepta la secuencia; si no, explica por que y que transformacion/produccion se necesitaria.
 3. Si la cadena es aceptada, muestra el arbol de parseo para cualquier `Expr`.
 4. Construir la tabla LL(1) con todo lo que conlleva desde cero.
 
 > **_Nota:_** El lenguaje de ejemplo del ejercicio no incluye comparaciones (`>`), ni `if` por defecto;en la respuesta debe indicar como extenderian la gramatica para aceptar`if` (si deciden hacerlo) y como afecta a la tabla LL1.
 
-<font color="green">**Solucion**</font>
+><font color="#6564b3">**Solucion**</font>
+>
 
 ## Ejercicio 3
 
@@ -67,10 +73,11 @@ Dada la siguiente gramatica clasica para expresiones
 
 	E → E + E | E * E | ( E ) | id | INT
 
-1. Realizar una transformacion que produzca una gramatica sin ambiguedad que respete: * tiene mayor precedencia que +, y ambas son asociativas a izquierda. Escribe las producciones.
+1. Realizar una transformacion que produzca una gramatica sin ambiguedad que respete: `*` tiene mayor precedencia que `+`, y ambas son asociativas a izquierda. Escribe las producciones.
 2. Convertir las producciones resultantes a forma normalde Chomsky (CNF). Justifique paso a paso.
 
-<font color="green">**Solucion**</font>
+><font color="#6564b3">**Solucion**</font>
+>
 
 ## Ejercicio 4
 
@@ -91,22 +98,23 @@ sabemos que ese tipo de construcciones presentan ambiguedad
 	```
 	Explicar paso a paso las producciones aplicadas que llevan a interpretaciones distintas
 
-<font color="green">**Solucion**</font>
-
-1. Definir una gramatica ambigua minima para que defina el fragmento propuesto
-
-	```
-		instr → if <expr> then <instr>
-				| if <expr> then <instr> else <instr>
-				| <otra> 
-		expr → ...
-	```
-
-
-2. Contruir ambos arboles de derivacion para la cadena
-
-	![Ejercicio 4.2](./assets/e4-2.drawio.svg)
-
-	Derivacion 1: **instr** ⇒ if expr then **instr** ⇒ if expr then **instr** ⇒ if expr then if expr then instr else instr
-
-	Derivacion 2: **instr** ⇒ if expr then **instr** else instr ⇒ if expr then **instr** else instr ⇒ if expr then if expr then instr else Stmt
+><font color="#6564b3">**Solucion**</font>
+>
+>1. Definir una gramatica ambigua minima para que defina el fragmento propuesto
+>	```
+>		instr → if <expr> then <instr>
+>				| if <expr> then <instr> else <instr>
+>				| <otra> 
+>		expr → ...
+>	```
+>
+>
+>2. Contruir ambos arboles de derivacion para la cadena
+>
+>	![Ejercicio 4.2](./assets/e4-2.drawio.svg)
+>
+>- Derivacion 1:  
+>	**instr** ⇒ if expr then **instr** ⇒ if expr then **instr** ⇒ if expr then if expr then instr else instr
+>
+>- Derivacion 2:  
+>	**instr** ⇒ if expr then **instr** else instr ⇒ if expr then **instr** else instr ⇒ if expr then if expr then instr else Stmt

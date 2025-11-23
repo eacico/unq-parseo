@@ -86,6 +86,7 @@
 
 8. <font color="red">**[FALTA]**</font> Implementar un autómata que reconozca literales de cadena y escape sequences.
 
+---
 
 ## Sección 2: Lenguajes Regulares y Normalización de Gramáticas (Ejercicios 9-14)
 
@@ -111,6 +112,8 @@
 
 14. <font color="red">**[FALTA]**</font> Normalizar la gramática de una mini-lenguaje de expresiones aritméticas a forma normal de Chomsky.
 
+---
+
 ## Sección 3: Análisis Sintáctico Descendente (Ejercicios 15-22)
 
 15. <font color="red">**[FALTA]**</font> Construir un parser descendente recursivo para expresiones aritméticas con operadores `+` y `*`.
@@ -132,6 +135,8 @@
 21. <font color="red">**[FALTA]**</font> Implementar un parser recursivo para estructuras condicionales `if-then-else`.
 
 22. <font color="red">**[FALTA]**</font> Diseñar un parser LL(1) para una pequeña gramática de sentencias repetitivas (`while` loops).
+
+---
 
 ## Sección 4: Análisis Sintáctico Ascendente (Ejercicios 23-30)
 

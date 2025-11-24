@@ -130,10 +130,10 @@ G(V,L,T,S) si existe algun w(arbol de derivacion) ∊ L(G) con al menos una de l
   >Ejemplo:
   ><table><tr><td style="vertical-align: top;">
   >
-  >X → αZβ | Y  
+  >X → αZβ | **Y**  
   >Y → αZ  
   >
-  >X → αZβ | αZ
+  >X → αZβ | **αZ**
   >
   ></td><td></td><td style="vertical-align: top;">
   >
@@ -203,14 +203,21 @@ G(V,L,T,S) si existe algun w(arbol de derivacion) ∊ L(G) con al menos una de l
 
 
 ## Forma Normal de Chomsky (FNC)
-	Se dice que una gramática está en Forma Normal de Chomsky (FNC) si toda producción es de la forma A → BC o de la forma A → a, en donde A, B y C son no terminales, y a es un terminal.
-		A → BC
-		A → a
-	Ejemplo:
-		S → AB
-		A → 0
-		B → 1 | SC
-		C → 1
+Se dice que una gramática está en Forma Normal de Chomsky (FNC) si toda producción es de la forma A → BC o de la forma A → a, en donde A, B y C son no terminales, y a es un terminal.  
+La producción S → ε está permitida solo para el símbolo de inicio S, y solo si la cadena vacía ε es parte del lenguaje que la gramática genera.  
+No se permiten producciones que mezclen símbolos terminales y no terminales en el lado derecho, como A → aB.
+No se permiten producciones de 3 o mas simbolos del lado derecho.  
+```
+A → BC
+A → a
+```
+Ejemplo:
+```
+S → AB
+A → 0
+B → 1 | SC
+C → 1
+```
 
 ## Forma Normal de Greibach (FNG)
 		A → α

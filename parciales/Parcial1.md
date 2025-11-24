@@ -2,13 +2,15 @@
 
 ## Ejercicio 1
 
-	S 			→ class IDENT Compr Feature end
-	Compr 		→ ɛ | id Feature
-	Feature 	→ feature DeclList | DeclList
-	DeclList 	→ Decl DeclList | ɛ
-	Decl 		→ IDENT_LIST : TYPE ; | IDENT : TYPE ;
-	IDENT_LIST 	→ IDENT , IDENT_LIST | IDENT
-	TYPE 		→ INTEGER | REAL | STRING
+```
+S           → class IDENT Compr Feature end
+Compr       → ɛ | id Feature
+Feature     → feature DeclList | DeclList
+DeclList    → Decl DeclList | ɛ
+Decl        → IDENT_LIST : TYPE ; | IDENT : TYPE ;
+IDENT_LIST  → IDENT , IDENT_LIST | IDENT
+TYPE        → INTEGER | REAL | STRING
+```
 	
 1. Verificar si la gramatica propuesta puede ser simplificada. Justificar paso a paso
 2. Si la respuesta del punto anterior es positiva, simplificar la gramatica. Justificar
@@ -19,8 +21,43 @@
 
 > <font color="#6564b3">**Solucion**</font>
 >
-> 1. 
+> 1. La gramatica puede ser simplificada, ya que en principio se observa una produccion ɛ.
 > 2. 
+>>
+>>1. Eliminacion producciones ε
+>>
+>>**DeclList → ɛ**
+>>
+>>```
+>>S           → class IDENT Compr Feature end
+>>Compr       → ɛ | id Feature | id
+>>Feature     → feature DeclList | Decl | feature
+>>DeclList    → Decl DeclList | Decl
+>>Decl        → IDENT_LIST : TYPE ; | IDENT : TYPE ;
+>>IDENT_LIST  → IDENT , IDENT_LIST | IDENT
+>>TYPE        → INTEGER | REAL | STRING
+>>```
+>>
+>>**Compr → ɛ**
+>>
+>>```
+>>S           → class IDENT Compr Feature end | class IDENT Feature end
+>>Compr       → id Feature | id
+>>Feature     → feature DeclList | Decl | feature
+>>DeclList    → Decl DeclList | Decl
+>>Decl        → IDENT_LIST : TYPE ; | IDENT : TYPE ;
+>>IDENT_LIST  → IDENT , IDENT_LIST | IDENT
+>>TYPE        → INTEGER | REAL | STRING
+>>```
+>>
+>>2. Elim. prod. Unitarias**  
+>>Las producciones unitarias que habia se quitaron en el paso anterior con la eliminacion de las producciones ɛ.
+>>
+>>3. Elim. var. no Positivas**  
+>>No hay  
+>>4. Elim. var. no Alcanzables**  
+>>No hay
+>>
 > 3. 
 > 4. 
 > 5. 

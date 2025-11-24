@@ -55,7 +55,7 @@ Ej:
 
 ### AFD para LR(0)
 
-![LR(0)-AFD](./assets/LR(0)-AFD.drawio.svg)
+![LR(0)-AFD](./assets/05-LR(0)-AFD.drawio.svg)
 
 ### tabla ACTION/GOTO
 
@@ -76,12 +76,12 @@ Es LR(0) porque no hay conflictos (mas de una produccion por celda)
 
 Conflicto Reduce/Reduce
 
-![LR(0)-conflicto-reduce-reduce](./assets/LR(0)-conflicto-reduce-reduce.png)
+![LR(0)-conflicto-reduce-reduce](./assets/05-LR(0)-conflicto-reduce-reduce.png)
 
 Conflicto Shift/Reduce
 
-![LR(0)-conflicto-reduce-reduce](./assets/LR(0)-conflicto-shift-reduce.png)
+![LR(0)-conflicto-reduce-reduce](./assets/05-LR(0)-conflicto-shift-reduce.png)
 
 Uso de la tabla para armar la pila
 
-![LR(0)-conflicto-reduce-reduce](./assets/LR(0)-uso-tabla.png)
+![LR(0)-conflicto-reduce-reduce](./assets/05-LR(0)-uso-tabla.png)

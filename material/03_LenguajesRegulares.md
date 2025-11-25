@@ -199,6 +199,34 @@ G(V,L,T,S) si existe algun w(arbol de derivacion) ∊ L(G) con al menos una de l
   >
   ></td></tr></table>
 
+## Eliminar Recurcion a Izquierda
+
+Ejemplo  
+Lenguaje: `cb*`  
+A → Ab | c
+
+A → cA'  
+A' → ɛ | bA'
+
+Ejemplo  
+S → Ab | c  
+A → d | Sf | Ag
+
+- Ordenar simbolos no terminales  
+  S,A
+1. Eliminar las producciones de `S` que comienzan con un simbolo anterior a `S`  
+No hay
+2. Eliminar las producciones de `A` que comienzan con un simbolo anterior a `A`  
+S → Ab | c  
+A → d | Abf | cf | Ag  
+- Eliminar recursion directa. Primero ordeno producciones con simbolos no terminales al inicio   
+S → Ab | c  
+A → Abf | Ag | d | cf  
+⇒  
+S → Ab | c  
+A → dA' | cfA'  
+A' → ε | bfA' | gA'
+
 ## Teorema General de Simplificacion
 
 

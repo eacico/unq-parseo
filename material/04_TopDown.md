@@ -59,7 +59,8 @@ Usando backtracking el parser se puede colgar con gramaticas que tengan recursio
      FIRST(B) += FIRST(β) 
 
 **FOLLOW** (no terminal)  
-1. Si S es estado inicial agrego $ a FOLLOW(S)
+1. Si S es estado inicial agrego $ a FOLLOW(S)  
+   FOLLOW(A) += { \$ }
 2. B → αAβ  
    FOLLOW(A) = FIRST(β) - {ε}  
    - B → αA &emsp; o &emsp; B → αAβ y β *⇒ ε &emsp; o &emsp; ε ∊ FIRST(β)  
@@ -67,9 +68,11 @@ Usando backtracking el parser se puede colgar con gramaticas que tengan recursio
 
 Ejemplo  
 
+**No Terminales**:  
+`{ id, int, bool, ⇒, ;, (, ) }`
 
 <table>
-<tr><th></th><th>FIRST</th><th></th><th>FOLLOW</th><th></th></tr>
+<tr><th></th><th>FIRST</th><th></th></tr>
 
 <tr><td style="vertical-align: top;">
 
@@ -86,8 +89,6 @@ U  → int
    | bool  
    | (T)
 ```
-**No Terminales**:  
-`{ id, int, bool, ⇒, ;, (, ) }`
 
 </td><td style="vertical-align: top;">
 
@@ -103,6 +104,44 @@ FIRST(U)
 { int, bool, ( }
 
 
+```
+
+</td><td style="vertical-align: top;">
+
+```
+S: { id, int, bool, (, ε }
+
+V: { id, int, bool, ( }
+D: { int, bool, (, ε }
+
+T: { int, bool, ( }
+T': { ⇒, ε }
+
+U: { int, bool, ( }
+
+
+```
+
+</td></tr></table>
+
+
+<table>
+<tr><th></th><th>FIRST</th><th>FOLLOW</th><th></th></tr>
+
+<tr><td style="vertical-align: top;">
+
+```
+S  → VS  
+   | ε  
+V  → D id;  
+D  → T  
+   | ε  
+T  → UT'  
+T' → ⇒ UT'  
+   | ε  
+U  → int  
+   | bool  
+   | (T)
 ```
 
 </td><td style="vertical-align: top;">
@@ -169,8 +208,11 @@ B → Aβ | ε
 A → α  
 
 Para armar la fila de B
-- B → Aβ | ε  
-  - En las columnas de **FIRST(A)** usar la produccion **B → Aβ**  
+- B → Aβ  
+  - En las columnas de **FIRST(Aβ)** usar la produccion **B → Aβ**  
+  FIRST(Aβ) = FIRST(A)+FIRST(β)  
+  Si por ejemplo FIRST(β)=ε entonces la produccion tambien aplica en las columnas FOLLOW(B)
+- B → ε  
   - En las columnas de **FOLLOW(B)** usar la produccion **B → ε**  
 
 |    | α | β | $ | 

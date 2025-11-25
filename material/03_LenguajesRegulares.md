@@ -247,6 +247,15 @@ B → 1 | SC
 C → 1
 ```
 
+### Pasos
+1. Simplificar  
+    - eliminar prod ε
+    - Eliminar prod unitarias
+    - Eliminar prod inutiles
+2. Pasar a FNC  
+    - Sustituir terminales
+    - Sustituir producciones >= 3
+
 ## Forma Normal de Greibach (FNG)
 		A → α
 	Ejemplo:

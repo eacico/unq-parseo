@@ -219,7 +219,10 @@ No hay
 2. Eliminar las producciones de `A` que comienzan con un simbolo anterior a `A`  
 S → Ab | c  
 A → d | Abf | cf | Ag  
-- Eliminar recursion directa. Primero ordeno producciones con simbolos no terminales al inicio   
+- Eliminar recursion directa.  
+Primero dejo las producciones sin recursion directa y les agrego al final la variable prima de la regla.  
+Luego a las producciones con recursion las paso como producciones de la variable prima quitandole la variable original y poniendo la variable prima al final.  
+Por ultimo agrego la produccion ε a la variable prima.  
 S → Ab | c  
 A → Abf | Ag | d | cf  
 ⇒  
@@ -229,8 +232,14 @@ A' → ε | bfA' | gA'
 
 ## Eliminar Ambigüedad
 - **Eliminar recursión izquierda**  
-- **Factorización**  
-Si un no terminal tiene múltiples producciones que comienzan con el mismo símbolo terminal, se agrupan bajo una nueva producción con un nuevo no terminal. Esto se hace para evitar la ambigüedad.
+- **Factorización por la izquierda**  
+Si un no terminal tiene múltiples producciones que comienzan con el mismo símbolo terminal, se agrupan bajo una nueva producción con un nuevo no terminal. Esto se hace para evitar la ambigüedad.  
+S → **if E then S** | **if E then S** else S | a  
+E → b  
+⇒  
+S  → **if E then S** S' | a  
+S' → else S | ε  
+E  → b  
 
 ## Teorema General de Simplificacion
 

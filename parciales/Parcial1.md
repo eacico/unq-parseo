@@ -424,12 +424,12 @@ sabemos que ese tipo de construcciones presentan ambiguedad
 ><font color="#6564b3">**Solucion**</font>
 >
 >1. Definir una gramatica ambigua minima para que defina el fragmento propuesto
->	```
->		instr → if <expr> then <instr>
->				| if <expr> then <instr> else <instr>
->				| <otra> 
->		expr → ...
->	```
+> ```
+> instr → if <expr> then <instr>
+>       | if <expr> then <instr> else <instr>
+>       | <otra> 
+> expr → ...
+> ```
 >
 >
 >2. Contruir ambos arboles de derivacion para la cadena

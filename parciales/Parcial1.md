@@ -58,7 +58,7 @@ TYPE        → INTEGER | REAL | STRING
 >>4. Elim. var. no Alcanzables**  
 >>No hay
 >>
-> 3. 
+> 3. <font color="red">**Falto eliminar recursion por izquierda y factorizar para eliminar la ambiguedad de la gramatica**</font>
 ><table>
 ><tr><th></th><th>FIRST</th><th></th></tr>
 >

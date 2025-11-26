@@ -154,6 +154,20 @@
 	>B → b
   >```
   >
+  ></td><td></td><td style="vertical-align: top;">
+  >
+  >⇒
+  >
+  ></td><td></td><td style="vertical-align: top;">
+  >
+  >```
+	>S → AX ∣ BY ∣ ε  
+	>X → SB
+	>Y → SA
+	>A → a  
+	>B → b
+  >```
+  >
   ></td></tr></table>
 
 11. Simplificar la gramática anterior. Explicar paso a paso
@@ -163,8 +177,10 @@
   > <font color="#6564b3">**Solucion**</font>
 	>
   >```
-	>S → ASB ∣ BSA ∣ ε
-	>A → a
+	>S → AX ∣ BY ∣ ε  
+	>X → SB
+	>Y → SA
+	>A → a  
 	>B → b
   >```
   >
@@ -173,15 +189,27 @@
   >**Elim. prod. ε**
 	>
   >```
-	>S → ASB ∣ BSA ∣ AB ∣ BA
-	>A → a
+	>S → AX ∣ BY
+	>X → SB | B
+	>Y → SA | A
+	>A → a  
 	>B → b
   >```
   >
   ></td><td></td><td style="vertical-align: top;">
   >
   >**Elim. prod. Unitarias**  
-	>No hay  
+	>
+  >```
+	>S → AX ∣ BY
+	>X → SB | b
+	>Y → SA | a
+	>A → a  
+	>B → b
+  >```
+  >
+  ></td><td></td><td style="vertical-align: top;">
+  >
   >**Elim. var. no Positivas**  
 	>No hay  
   >**Elim. var. no Alcanzables**  
@@ -192,8 +220,10 @@
   >**Resultado Final**
 	>
   >```
-	>S → ASB ∣ BSA ∣ AB ∣ BA
-	>A → a
+	>S → AX ∣ BY
+	>X → SB | b
+	>Y → SA | a
+	>A → a  
 	>B → b
   >```
   >

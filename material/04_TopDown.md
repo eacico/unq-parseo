@@ -209,9 +209,7 @@ A → α
 
 Para armar la fila de B
 - B → Aβ  
-  - En las columnas de **FIRST(Aβ)** usar la produccion **B → Aβ**  
-  FIRST(Aβ) = FIRST(A)+FIRST(β)  
-  Si por ejemplo FIRST(β)=ε entonces la produccion tambien aplica en las columnas FOLLOW(B)
+  - En las columnas de **FIRST(A)** usar la produccion **B → Aβ**  
 - B → ε  
   - En las columnas de **FOLLOW(B)** usar la produccion **B → ε**  
 
@@ -268,3 +266,12 @@ E → exp
 En este ejemplo se puede ver que para `M[S,if]` van a existir 2 producciones:
 - S → if E then S  
 - S → if E then S else S
+
+### Hacer gramatica LL(1)
+- **Eliminar recursión izquierda**  
+Identifica y elimina las reglas de producción recursivas en el lado izquierdo de otras reglas de la gramática. Esto es un paso crucial porque las gramáticas recursivas con recursión izquierda no son LL(1).  
+- **Factorización**  
+Si un no terminal tiene múltiples producciones que comienzan con el mismo símbolo terminal, se agrupan bajo una nueva producción con un nuevo no terminal. Esto se hace para evitar la ambigüedad.
+- **Calcular los conjuntos First y Follow**
+- **Construir la tabla LL(1)**
+- **Verificar si es LL(1)**

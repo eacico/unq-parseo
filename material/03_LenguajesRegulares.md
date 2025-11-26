@@ -227,6 +227,11 @@ S → Ab | c
 A → dA' | cfA'  
 A' → ε | bfA' | gA'
 
+## Eliminar Ambigüedad
+- **Eliminar recursión izquierda**  
+- **Factorización**  
+Si un no terminal tiene múltiples producciones que comienzan con el mismo símbolo terminal, se agrupan bajo una nueva producción con un nuevo no terminal. Esto se hace para evitar la ambigüedad.
+
 ## Teorema General de Simplificacion
 
 

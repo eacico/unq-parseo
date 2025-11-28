@@ -228,232 +228,235 @@ e) <font color="red">**Falta**</font> ¿Qué tipo de interpretación propondría
 
 ><font color="#6564b3">**Solucion**</font>
 >
-<table>
-<tr><td style="vertical-align: top;">
-
-a)
-```
-1.   x := 1
-2.   y := 0
-
-3.   L1: if x < n goto L2
-4.       goto LEND
-
-5.   L2: if y > x goto THEN
-6.       goto ELSE
-
-        THEN:
-7.         y := x
-8.         i := 1
-9.   L3:   if i <= 30 goto L4
-10.          goto L5
-11.  L4:   t1 := y * x
-12.        t2 := t1 + i
-13.        x  := t2 + x
-14.        i := i + 1
-15.        goto L3
-16.  L5:   goto AFTER_IF
-
-        ELSE:
-17.        x := x + y
-18.        j := 1
-19.  L6:   if j <= 50 goto L7
-20.          goto L8
-21.  L7:   t3 := y * x
-22.        t4 := t3 - j
-23.        x  := t4 + x
-24.        j := j + 1
-25.        goto L6
-26.  L8:   goto AFTER_IF
-
-27. AFTER_IF:
-28.      x := x + 1
-29.      goto L1
-
-30. LEND:
-31. return x
-```
-
-</td><td style="vertical-align: top;">
-
-b)
-```
-1   x := 1
-2   y := 0
-
-3 L1:
-4   t1 := x < n
-5   if t1 goto L2
-6   goto LEND
-
-7 L2:
-8   t2 := y > x
-9   if t2 goto THEN
-10  goto ELSE
-
-THEN:
-11  y := x
-12  i := 1
-
-13 L3:
-14  t3 := i <= 30
-15  if t3 goto L4
-16  goto L5
-
-17 L4:
-18  t4 := y * x
-19  t5 := t4 + i
-20  t6 := t5 + x
-21  x := t6
-22  t7 := i + 1
-23  i := t7
-24  goto L3
-
-25 L5:
-26  goto AFTER_IF
-
-ELSE:
-27  t8 := x + y
-28  x := t8
-29  j := 1
-
-30 L6:
-31  t9 := j <= 50
-32  if t9 goto L7
-33  goto L8
-
-34 L7:
-35  t10 := y * x
-36  t11 := t10 - j
-37  t12 := t11 + x
-38  x := t12
-39  t13 := j + 1
-40  j := t13
-41  goto L6
-
-42 L8:
-43  goto AFTER_IF
-
-44 AFTER_IF:
-45  t14 := x + 1
-46  x := t14
-47  goto L1
-
-48 LEND:
-49  return x
-```
-
-</td><td style="vertical-align: top;">
-
-c)  
-Líderes:
-- 1 (primera)
-- L1 (3)
-- L2 (7)
-- THEN (11)
-- L3 (13)
-- L4 (17)
-- L5 (25)
-- ELSE (27)
-- L6 (30)
-- L7 (34)
-- L8 (42)
-- AFTER_IF (44)
-- LEND (48)
-
-Bloques básicos  
-**BB1**
-```
-1  x := 1
-2  y := 0
-```
-**BB2 (L1)**
-```
-3 L1:
-4 t1 := x < n
-5 if t1 goto L2
-6 goto LEND
-```
-**BB3 (L2)**
-```
-7 L2:
-8 t2 := y > x
-9 if t2 goto THEN
-10 goto ELSE
-```
-**BB4 (THEN)**
-```
-11 y := x
-12 i := 1
-```
-**BB5 (L3)**
-```
-13 L3:
-14 t3 := i <= 30
-15 if t3 goto L4
-16 goto L5
-```
-**BB6 (L4)**
-```
-17 L4:
-18 t4 := y * x
-19 t5 := t4 + i
-20 t6 := t5 + x
-21 x := t6
-22 t7 := i + 1
-23 i := t7
-24 goto L3
-```
-**BB7 (L5)**
-```
-25 L5:
-26 goto AFTER_IF
-```
-**BB8 (ELSE)**
-```
-27 t8 := x + y
-28 x := t8
-28 j := 1
-```
-**BB9 (L6)**
-```
-30 L6:
-31 t9 := j <= 50
-32 if t9 goto L7
-33 goto L8
-```
-**BB10 (L7)**
-```
-34 L7:
-35 t10 := y * x
-36 t11 := t10 - j
-37 t12 := t11 + x
-38 x := t12
-39 t13 := j + 1
-40 j := t13
-41 goto L6
-```
-**BB11 (L8)**
-```
-42 L8:
-43 goto AFTER_IF
-```
-**BB12 (AFTER_IF)**
-```
-44 AFTER_IF:
-45 t14 := x + 1
-46 x := t14
-47 goto L1
-```
-**BB13 (LEND)**
-```
-48 LEND:
-49 return x
-```
-
-</td></tr>
-</table>
-
+> <table>
+> <tr><td style="vertical-align: top;">
+> 
+> a)
+> ```
+> 1.   x := 1
+> 2.   y := 0
+> 
+> 3.   L1: if x < n goto L2
+> 4.       goto LEND
+> 
+> 5.   L2: if y > x goto THEN
+> 6.       goto ELSE
+> 
+>         THEN:
+> 7.         y := x
+> 8.         i := 1
+> 9.   L3:   if i <= 30 goto L4
+> 10.          goto L5
+> 11.  L4:   t1 := y * x
+> 12.        t2 := t1 + i
+> 13.        x  := t2 + x
+> 14.        i := i + 1
+> 15.        goto L3
+> 16.  L5:   goto AFTER_IF
+> 
+>         ELSE:
+> 17.        x := x + y
+> 18.        j := 1
+> 19.  L6:   if j <= 50 goto L7
+> 20.          goto L8
+> 21.  L7:   t3 := y * x
+> 22.        t4 := t3 - j
+> 23.        x  := t4 + x
+> 24.        j := j + 1
+> 25.        goto L6
+> 26.  L8:   goto AFTER_IF
+> 
+> 27. AFTER_IF:
+> 28.      x := x + 1
+> 29.      goto L1
+> 
+> 30. LEND:
+> 31. return x
+> ```
+> 
+> </td><td style="vertical-align: top;">
+> 
+> b)
+> ```
+> 1   x := 1
+> 2   y := 0
+> 
+> 3 L1:
+> 4   t1 := x < n
+> 5   if t1 goto L2
+> 6   goto LEND
+> 
+> 7 L2:
+> 8   t2 := y > x
+> 9   if t2 goto THEN
+> 10  goto ELSE
+> 
+> THEN:
+> 11  y := x
+> 12  i := 1
+> 
+> 13 L3:
+> 14  t3 := i <= 30
+> 15  if t3 goto L4
+> 16  goto L5
+> 
+> 17 L4:
+> 18  t4 := y * x
+> 19  t5 := t4 + i
+> 20  t6 := t5 + x
+> 21  x := t6
+> 22  t7 := i + 1
+> 23  i := t7
+> 24  goto L3
+> 
+> 25 L5:
+> 26  goto AFTER_IF
+> 
+> ELSE:
+> 27  t8 := x + y
+> 28  x := t8
+> 29  j := 1
+> 
+> 30 L6:
+> 31  t9 := j <= 50
+> 32  if t9 goto L7
+> 33  goto L8
+> 
+> 34 L7:
+> 35  t10 := y * x
+> 36  t11 := t10 - j
+> 37  t12 := t11 + x
+> 38  x := t12
+> 39  t13 := j + 1
+> 40  j := t13
+> 41  goto L6
+> 
+> 42 L8:
+> 43  goto AFTER_IF
+> 
+> 44 AFTER_IF:
+> 45  t14 := x + 1
+> 46  x := t14
+> 47  goto L1
+> 
+> 48 LEND:
+> 49  return x
+> ```
+> 
+> </td><td style="vertical-align: top;">
+> 
+> c)  
+> Líderes:
+> - 1 (primera)
+> - L1 (3)
+> - L2 (7)
+> - THEN (11)
+> - L3 (13)
+> - L4 (17)
+> - L5 (25)
+> - ELSE (27)
+> - L6 (30)
+> - L7 (34)
+> - L8 (42)
+> - AFTER_IF (44)
+> - LEND (48)
+> 
+> Bloques básicos  
+> **BB1**
+> ```
+> 1  x := 1
+> 2  y := 0
+> ```
+> **BB2 (L1)**
+> ```
+> 3 L1:
+> 4 t1 := x < n
+> 5 if t1 goto L2
+> 6 goto LEND
+> ```
+> **BB3 (L2)**
+> ```
+> 7 L2:
+> 8 t2 := y > x
+> 9 if t2 goto THEN
+> 10 goto ELSE
+> ```
+> **BB4 (THEN)**
+> ```
+> 11 y := x
+> 12 i := 1
+> ```
+> **BB5 (L3)**
+> ```
+> 13 L3:
+> 14 t3 := i <= 30
+> 15 if t3 goto L4
+> 16 goto L5
+> ```
+> 
+> </td><td style="vertical-align: top;">
+> 
+> **BB6 (L4)**
+> ```
+> 17 L4:
+> 18 t4 := y * x
+> 19 t5 := t4 + i
+> 20 t6 := t5 + x
+> 21 x := t6
+> 22 t7 := i + 1
+> 23 i := t7
+> 24 goto L3
+> ```
+> **BB7 (L5)**
+> ```
+> 25 L5:
+> 26 goto AFTER_IF
+> ```
+> **BB8 (ELSE)**
+> ```
+> 27 t8 := x + y
+> 28 x := t8
+> 28 j := 1
+> ```
+> **BB9 (L6)**
+> ```
+> 30 L6:
+> 31 t9 := j <= 50
+> 32 if t9 goto L7
+> 33 goto L8
+> ```
+> **BB10 (L7)**
+> ```
+> 34 L7:
+> 35 t10 := y * x
+> 36 t11 := t10 - j
+> 37 t12 := t11 + x
+> 38 x := t12
+> 39 t13 := j + 1
+> 40 j := t13
+> 41 goto L6
+> ```
+> **BB11 (L8)**
+> ```
+> 42 L8:
+> 43 goto AFTER_IF
+> ```
+> **BB12 (AFTER_IF)**
+> ```
+> 44 AFTER_IF:
+> 45 t14 := x + 1
+> 46 x := t14
+> 47 goto L1
+> ```
+> **BB13 (LEND)**
+> ```
+> 48 LEND:
+> 49 return x
+> ```
+> 
+> </td></tr>
+> </table>
+> 
 
 ---
 

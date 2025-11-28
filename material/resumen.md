@@ -198,6 +198,16 @@ Inferencia de tipos
 
 ## Análisis de Flujo de Datos (CFG(Control Flow Graph) y Reaching Definitions)
 
+### Líderes y bloques básicos
+
+Regla de líderes:  
+Un líder es:
+- La primera instrucción del programa
+- El destino de un `goto` o `if`
+- La instrucción siguiente a cualquier salto condicional o incondicional
+
+Agrupo instrucciones desde un líder hasta el siguiente salto o líder.
+
 ### Grafo de Flujo
 
 Reglas:

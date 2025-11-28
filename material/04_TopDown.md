@@ -202,6 +202,10 @@ U: { ⇒, ), id }
 			M[A, b] = A → α
 		Si en algún momento intentas poner dos producciones distintas en la misma celda M[A, t], tienes conflicto → la gramática no es LL(1).
 
+### Precondiciones
+1. **Simplificar**
+2. **Eliminar recursión izquierda** (obligatorio)
+3. **Factorizar** (obligatorio si hay prefijos comunes)
 
 ### Armar Tabla
 B → Aβ | ε  

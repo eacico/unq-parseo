@@ -34,6 +34,14 @@ para la entrada `n*n+n`
 
 ## LR(0)
 
+### Precondiciones
+
+1. **Simplificación** (opcional, ayuda a tener tablas más limpias)
+
+NO se debe:
+  - eliminar recursión por la izquierda
+  - factorizar
+
 ### Closure
 
 Ej: 
@@ -57,20 +65,29 @@ Ej:
 
 ![LR(0)-AFD](./assets/05-LR(0)-AFD.drawio.svg)
 
-### tabla ACTION/GOTO
+### Tabla ACTION/GOTO
+Teniendo los Items armados puedo armar la tabla con los siguientes pasos:  
+1. Armar estructura de la tabla con:
+    - Filas: descripcion de los **Items** definidos
+      - Nota: Omitir la fila del estado de aceptacion
+    - Columnas: Separarlas en 2 grupos
+      - Los **No Terminales** correspondientes al grupo **GOTO**
+      - Los **Terminales** (incluyendo `$`) correspondientes al grupo **ACTION**
+2. Completar todas las celdas usando las reglas de transicion definidas por el automata. Para las reglas qye reciban un simbolo **terminal** indicar que se hace un **Shift** al nuevo estado.
+3. Para los estados que tengan solo una produccion con el cursos al final, escribir en todas las celdas de **ACTION** la produccion a aplicar.
 
-|   | GOTO       ||| ACTION             |||||
-|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|   | E' | E | T | n         | +  | (  | )  | $  |
-| 1 |    | 2 | 9 | S6        | | S5 |  |  |
-| 2 |    |   |   |           | S3 |  |  | ACCEPT |
-| 3 |    |   | 4 | S6        |  | S5 |  |  |
-| 4 |    |   |   | E → E + T | E → E + T | E → E + T | E → E + T | E → E + T |
-| 5 |    | 7 |   | S6        | S9 | S5 |  |  |
-| 6 |    |   |   | T → n     | T → n | T → n | T → n | T → n |
-| 7 |    |   |   |           |  |  | S8 |  |
-| 8 |    |   |   | T → (E)   | T → (E) | T → (E) | T → (E) | T → (E) |
-| 9 |    |   |   | E → T     | E → T | E → T | E → T | E → T |
+|   | GOTO   || ACTION             |||||
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|   | E  | T  | n         | +  | (  | )  | $  |
+| 1 | 2  | 9  | S6        | | S5 |  |  |
+| 2 |    |    |           | S3 |  |  | ACCEPT |
+| 3 |    | 4  | S6        |  | S5 |  |  |
+| 4 |    |    | E → E + T | E → E + T | E → E + T | E → E + T | E → E + T |
+| 5 | 7  |    | S6        | S9 | S5 |  |  |
+| 6 |    |    | T → n     | T → n | T → n | T → n | T → n |
+| 7 |    |    |           |  |  | S8 |  |
+| 8 |    |    | T → (E)   | T → (E) | T → (E) | T → (E) | T → (E) |
+| 9 |    |    | E → T     | E → T | E → T | E → T | E → T |
 
 Es LR(0) porque no hay conflictos (mas de una produccion por celda)
 

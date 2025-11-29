@@ -492,12 +492,12 @@ para el lenguaje:
 
 ```text
 Expr ::= Var x  
-        | Const n  
-        | Add Expr Expr  
-        | Assign x Expr  
-        | Seq Expr Expr  
-        | Call f [Expr]  
-        | IfZero Expr Expr Expr  
+       | Const n  
+       | Add Expr Expr  
+       | Assign x Expr  
+       | Seq Expr Expr  
+       | Call f [Expr]  
+       | IfZero Expr Expr Expr  
 ```
 
 Las definiciones de funciones son:

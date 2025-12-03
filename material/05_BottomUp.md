@@ -1,18 +1,24 @@
 # Bottom Up
 
-## Bottom-Up
-
-  Shift
+- Shift  
     Cuando leo un caracter de la entrada
-  Reduce
+- Reduce  
     Cuando transformo la cadena procesada aplicando una produccion que la defina
 
 Ej: Usar el algoritmo para el analisis sintactico ascendente con la gramatica G=({E,T,F},{+,*,n,(,)},P,E):
+
+<table>
+<tr><td style="vertical-align: top;">
+
 ```
-  E → T | E + T
-  T → F | T * F
-  F → n | (E) 
+E → T | E + T
+T → F | T * F
+F → n | (E) 
 ```
+
+</td><td style="vertical-align: top;">
+</td><td style="vertical-align: top;">
+
 para la entrada `n*n+n`
 
 | Pila | Entrada |  |
@@ -32,15 +38,18 @@ para la entrada `n*n+n`
 | `E+T` | `$` | Reduce |
 | `E` | `$` | Accept |
 
+</td></tr></table>
+
+
 ## LR(0)
 
 ### Precondiciones
 
 1. **Simplificación** (opcional, ayuda a tener tablas más limpias)
 
-NO se debe:
-  - eliminar recursión por la izquierda
-  - factorizar
+NO es necesario:
+  - Eliminar recursión por la izquierda
+  - Factorizar
 
 ### Closure
 
@@ -50,7 +59,6 @@ Ej:
   E → T | E + T
   T → n | (E) 
 ```
-
 
 ```
   I 		= { E' → •E$ }
@@ -102,3 +110,30 @@ Conflicto Shift/Reduce
 Uso de la tabla para armar la pila
 
 ![LR(0)-conflicto-reduce-reduce](./assets/05-LR(0)-uso-tabla.png)
+
+| Pila | Entrada |  |
+| :-------- | ------------: | :---- |
+| [1] | `n+(n+n)` | M[1,n] = Shift(9) |
+| [1,n,9] | `+(n+n)` | M[9,+] = Reduce(T → n) |
+| [1] | `+(n+n)` | M[1,T] = Shift(4) |
+| [1,T,4] | `+(n+n)` | M[4,+] = Reduce(E → T) |
+| [1] | `+(n+n)` | M[1,E] = Reduce(E → T) |
+| [1,E,2] | `+(n+n)` | M[2,+] = Shift(5) |
+| [1,E,2,+,5] | `(n+n)` | M[5,(] = Shift(7) |
+| [1,E,2,+,5,(,7] | `n+n)` | M[7,n] = Shift(9) |
+| [1,E,2,+,5,(,7,n,9] | `+n)` | M[9,+] = Reduce(T → n) |
+| [1,E,2,+,5,(,7,T] | `+n)` | M[7,T] = Shift(8) |
+| [1,E,2,+,5,(,7,T,8] | `+n)` | M[8,+] = Reduce(E → T) |
+| [1,E,2,+,5,(,7,E] | `+n)` | M[7,E] = Shift(10) |
+| [1,E,2,+,5,(,7,E,10] | `+n)` | M[10,+] = Shift(5) |
+| [1,E,2,+,5,(,7,E,10,+,5] | `n)` | M[5,n] = Shift(9) |
+| [1,E,2,+,5,(,7,E,10,+,5,n,9] | `)` | M[9,)] = Reduce(T → n) |
+| [1,E,2,+,5,(,7,E,10,+,5,T] | `)` | M[5,T] = Shift(6) |
+| [1,E,2,+,5,(,7,E,10,+,5,T,6] | `)` | M[6,)] = Reduce(E → E + T) |
+| [1,E,2,+,5,(,7,E] | `)` | M[7,E] = Shift(10) |
+| [1,E,2,+,5,(,7,E,10] | `)` | M[10,)] = Shift(3) |
+| [1,E,2,+,5,(,7,E,10,),3] | `$` | M[3,$] = Reduce(T → (E)) |
+| [1,E,2,+,5,T] | `$` | M[5,T] = Shift(6) |
+| [1,E,2,+,5,T,6] | `$` | M[6,$] = Reduce(E → E + T) |
+| [1,E] | `$` | M[1,E] = Shift(2) |
+| [1,E,2] | `$` | M[2,$] = **ACCEPT** |

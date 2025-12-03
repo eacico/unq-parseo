@@ -153,7 +153,7 @@ d) <font color="red">**Falta**</font> Justifique y realice un analisis de su per
 > 
 > M=(Q,Σ,δ,I<sub>0</sub>​,F)  
 >  &emsp; Q={I<sub>0</sub>, ... , I<sub>17</sub>​}  
->  &emsp; Σ={0,1}  
+>  &emsp; Σ={S, Stmt, E, T, ;, :=, if, then, +, ID, NUM, \$}  
 >  &emsp; F={I<sub>2</sub>​}  
 >  &emsp; δ = {  
 >  &emsp; &emsp; δ(*I<sub>0</sub>*, `S`)→*I<sub>1</sub>*, δ(*I<sub>0</sub>*, `;`)→*I<sub>5</sub>*, δ(*I<sub>0</sub>*, `ID`)→*I<sub>7</sub>*, δ(*I<sub>0</sub>*, `if`)→*I<sub>14</sub>*,  
@@ -233,17 +233,16 @@ e) <font color="red">**Falta**</font> ¿Qué tipo de interpretación propondría
 > 
 > a)
 > ```
-> 1.   x := 1
-> 2.   y := 0
+> 1.         x := 1
+> 2.         y := 0
 > 
-> 3.   L1: if x < n goto L2
-> 4.       goto LEND
+> 3.   L1:   if x < n goto L2
+> 4.         goto LEND
 > 
-> 5.   L2: if y > x goto THEN
-> 6.       goto ELSE
+> 5.   L2:   if y > x goto THEN
+> 6.         goto ELSE
 > 
->         THEN:
-> 7.         y := x
+> 7. THEN:   y := x
 > 8.         i := 1
 > 9.   L3:   if i <= 30 goto L4
 > 10.          goto L5
@@ -254,8 +253,7 @@ e) <font color="red">**Falta**</font> ¿Qué tipo de interpretación propondría
 > 15.        goto L3
 > 16.  L5:   goto AFTER_IF
 > 
->         ELSE:
-> 17.        x := x + y
+> 17. ELSE:  x := x + y
 > 18.        j := 1
 > 19.  L6:   if j <= 50 goto L7
 > 20.          goto L8
@@ -267,8 +265,8 @@ e) <font color="red">**Falta**</font> ¿Qué tipo de interpretación propondría
 > 26.  L8:   goto AFTER_IF
 > 
 > 27. AFTER_IF:
-> 28.      x := x + 1
-> 29.      goto L1
+> 28.        x := x + 1
+> 29.        goto L1
 > 
 > 30. LEND:
 > 31. return x

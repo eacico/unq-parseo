@@ -4,12 +4,19 @@ Para aplicar las derivaciones suponemos tener un Oraculo que nos proporciona la 
 
 Ejemplo de **analisis sintactico descendente predictivo**
 
+
+<table>
+<tr><td style="vertical-align: top;">
+
 ```
 T → U
   | U ⇒ T
 U → a
   | (T)
 ```
+
+</td><td style="vertical-align: top;">
+</td><td style="vertical-align: top;">
 
 | Entrada | Pila | |
 | :-------- | ------------: | :---- |
@@ -37,6 +44,13 @@ U → a
 |  |
 | ε | ε | |
 
+</td></tr></table>
+
+
+
+
+
+
 La cadena es aceptada porque tanto la pila como la cadena a procesar redujeron a ε.  
 Falla en el caso que la entrada o la pila quede vacia pero la otra no.
 
@@ -44,6 +58,13 @@ Falla en el caso que la entrada o la pila quede vacia pero la otra no.
 
 Si utilizo un algoritmo sin oraculo para decidir si una cadena es aceptada por la gramatica, el backtracking es la tecnica de analizar una rama del arbol de derivacion y si falla (la produccion no acepta la cadena) volver al ultimo punto que la cadena era aceptada y continuar verificando por otra produccion (otra rama).  
 Usando backtracking el parser se puede colgar con gramaticas que tengan recursion a izquierda. Ej: `S → a | S + a`
+
+## LL(1)
+
+### Precondiciones
+1. **Simplificar**
+2. **Eliminar recursión izquierda** (obligatorio)
+3. **Factorizar** (obligatorio si hay prefijos comunes)
 
 ## FIRST / FOLLOW
 >Fuente: 4.4.2 PRIMERO y SIGUIENTE [pagina 220]  
@@ -202,10 +223,6 @@ U: { ⇒, ), id }
 			M[A, b] = A → α
 		Si en algún momento intentas poner dos producciones distintas en la misma celda M[A, t], tienes conflicto → la gramática no es LL(1).
 
-### Precondiciones
-1. **Simplificar**
-2. **Eliminar recursión izquierda** (obligatorio)
-3. **Factorizar** (obligatorio si hay prefijos comunes)
 
 ### Armar Tabla
 B → Aβ | ε  

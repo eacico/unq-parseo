@@ -4,7 +4,7 @@
 
 ![Interpretes-ej](./assets/Interpretes-ej.png)
 
-### Interprete Basico
+## Interprete Directo
 
 $$
 \mathcal{L}_{\text{fuente}}(P, X)
@@ -79,6 +79,7 @@ eval ejemplo emptyEnv     -- VN 15
 
 ---
 Ejemplo de algo, Reyna
+
 ```python
 env = {}
 
@@ -98,7 +99,7 @@ def eval_expr(expr):
 ```
 
 ---
-### Store-Passing (para lenguaje imperativo)
+## Store-Passing (para lenguaje imperativo)
 
 Extendemos el lenguaje con
 ```haskell
@@ -204,6 +205,32 @@ isTrueVal _         = False
 
 ---
 Ejemplo de algo, Reyna
+<table>
+<tr><td style="vertical-align: top;">
+
+```python
+def eval_expr(expr, env, store):
+    if expr["type"] == "num":
+        return expr["value"], store
+    elif expr["type"] == "var":
+			addr = env.lookup(expr["name"])
+			val = store.read(addr)
+			return val, store
+    elif expr["type"] == "add":
+			v1, s1 = eval_expr(expr["left"], env, store)
+			v2, s2 = eval_expr(expr["right"], env, s1)
+			return v1 + v2, s2
+
+def eval_stmt(stmt, env, store):
+    if stmt["type"] == "assign":
+			val, s1 = eval_expr(stmt["expr"], env, store)
+			addr = env.lookup(stmt["target"])
+			s1.update(addr, val)
+			return s1
+```
+
+</td><td style="vertical-align: top;">
+
 ```python
 class Environment:
 	def __init__(self, parent=None):
@@ -235,29 +262,12 @@ class Store:
 	def read(self, addr):
 		return self.memory[addr]
 ```
-```python
-def eval_expr(expr, env, store):
-    if expr["type"] == "num":
-        return expr["value"], store
-    elif expr["type"] == "var":
-			addr = env.lookup(expr["name"])
-			val = store.read(addr)
-			return val, store
-    elif expr["type"] == "add":
-			v1, s1 = eval_expr(expr["left"], env, store)
-			v2, s2 = eval_expr(expr["right"], env, s1)
-			return v1 + v2, s2
 
-def eval_stmt(stmt, env, store):
-    if stmt["type"] == "assign":
-			val, s1 = eval_expr(stmt["expr"], env, store)
-			addr = env.lookup(stmt["target"])
-			s1.update(addr, val)
-			return s1
-```
+</td></tr>
+</table>
 
 ---
-### Continuation-Passing Style (CPS)
+## Continuation-Passing Style (CPS)
 
 En lugar de devolver los resultados recursivamene, se puede trabajar con interpretes que pasen los resultados a una **continuacion**. Ena continuacion es una funcion que recibe un valor y un estado de la menoria y hace algo con ellos, devolviendo un resultado final.
 
@@ -338,6 +348,11 @@ Se usa como lenguaje intermedio para compilar lenguajes funcionales.
 
 ---
 Ejemplo de algo, Reyna
+
+
+<table>
+<tr><td style="vertical-align: top;">
+
 ```python
 def eval_expr(expr, env, k):
     if expr["type"] == "num":
@@ -355,6 +370,14 @@ def eval_stmt(stmt, env, k):
 			return eval_expr(stmt["expr"], env,
 				lambda val: (print(val), k(env))[1])
 ```
+
+</td><td style="vertical-align: top;">
+
+```python
+```
+
+</td></tr>
+</table>
 
 Ejemplo
 

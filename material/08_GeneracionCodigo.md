@@ -8,7 +8,13 @@ Ejemplo de codigo fuente
 c := a + b * 2
 ```
 
-**Tres Direcciones** (Three Address Code – TAC) [Libro '6.2 Código de tres direcciones' pagina 389]
+![inf-tipos unificacion](./assets/08-cod-int-ej1.png)
+
+a) árbol sintáctico abstracto  
+b) es una secuencia de instrucciones de “tres direcciones”  
+
+## Tres Direcciones (Three Address Code – TAC)
+>[Libro '6.2 Código de tres direcciones' pagina 389]
 
 Características:
 
@@ -40,9 +46,3 @@ c  := t1
 ```
 
 
-- código intermedio
-- código intermedio con etiquetas y saltos
-- optimización de temporales
-- gramática de atributos
-- notación posfija (postfijo)
-- mini–máquina de tres direcciones

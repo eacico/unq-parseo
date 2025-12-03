@@ -116,118 +116,118 @@
 
 <font color="yellow">**Revisar**</font>
 
-  > <font color="#6564b3">**Solucion**</font>
-  >
-  > Un lenguaje es regular si puedes:
-  > * Construir un autómata finito (AFD o AFN) que lo reconozca.
-  > * O escribir una expresión regular que lo genere.
-  > * O describirlo con una gramática regular.
-	> 
-	> ```
-	> S → Tabb | abb
-	> T → a | b | aT | bT
-	> ```
-	> 
-	> ![Ejercicio 5 - AFD](./assets/p1-s2-e9.drawio.svg)
+> <font color="#6564b3">**Solucion**</font>
+>
+> Un lenguaje es regular si puedes:
+> * Construir un autómata finito (AFD o AFN) que lo reconozca.
+> * O escribir una expresión regular que lo genere.
+> * O describirlo con una gramática regular.
+> 
+> ```
+> S → Tabb | abb
+> T → a | b | aT | bT
+> ```
+> 
+> ![Ejercicio 5 - AFD](./assets/p1-s2-e9.drawio.svg)
 
 10. Clasificar la gramática `S→aSb∣bSa∣ε` según forma normal de Chomsky.
 
 <font color="yellow">**Revisar**</font>
 
-  > <font color="#6564b3">**Solucion**</font>
-	>
-  > <table><tr><td style="vertical-align: top;">
-  > 
-  > ```
-  > S → aSb ∣ bSa ∣ ε
-  > ```
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > ⇒
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > ```
-	> S → ASB ∣ BSA ∣ ε  
-	> A → a  
-	> B → b
-  > ```
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > ⇒
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > ```
-	> S → AX ∣ BY ∣ ε  
-	> X → SB
-	> Y → SA
-	> A → a  
-	> B → b
-  > ```
-  > 
-  > </td></tr></table>
+> <font color="#6564b3">**Solucion**</font>
+>
+> <table><tr><td style="vertical-align: top;">
+> 
+> ```
+> S → aSb ∣ bSa ∣ ε
+> ```
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> ⇒
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> ```
+> S → ASB ∣ BSA ∣ ε  
+> A → a  
+> B → b
+> ```
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> ⇒
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> ```
+> S → AX ∣ BY ∣ ε  
+> X → SB
+> Y → SA
+> A → a  
+> B → b
+> ```
+> 
+> </td></tr></table>
 
 11. Simplificar la gramática anterior. Explicar paso a paso
 
 <font color="yellow">**Revisar**</font>
 
-  > <font color="#6564b3">**Solucion**</font>
-	>
-  > ```
-	> S → AX ∣ BY ∣ ε  
-	> X → SB
-	> Y → SA
-	> A → a  
-	> B → b
-  > ```
-  > 
-  > <table><tr><td style="vertical-align: top;">
-	> 
-  > **Elim. prod. ε**
-	> 
-  > ```
-	> S → AX ∣ BY
-	> X → SB | B
-	> Y → SA | A
-	> A → a  
-	> B → b
-  > ```
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > **Elim. prod. Unitarias**  
-	> 
-  > ```
-	> S → AX ∣ BY
-	> X → SB | b
-	> Y → SA | a
-	> A → a  
-	> B → b
-  > ```
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > **Elim. var. no Positivas**  
-	> No hay  
-  > **Elim. var. no Alcanzables**  
-	> No hay
-  > 
-  > </td><td></td><td style="vertical-align: top;">
-  > 
-  > **Resultado Final**
-	> 
-  > ```
-	> S → AX ∣ BY
-	> X → SB | b
-	> Y → SA | a
-	> A → a  
-	> B → b
-  > ```
-  > 
-  > </td></tr></table>
+> <font color="#6564b3">**Solucion**</font>
+>
+> ```
+> S → AX ∣ BY ∣ ε  
+> X → SB
+> Y → SA
+> A → a  
+> B → b
+> ```
+> 
+> <table><tr><td style="vertical-align: top;">
+> 
+> **Elim. prod. ε**
+> 
+> ```
+> S → AX ∣ BY
+> X → SB | B
+> Y → SA | A
+> A → a  
+> B → b
+> ```
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> **Elim. prod. Unitarias**  
+> 
+> ```
+> S → AX ∣ BY
+> X → SB | b
+> Y → SA | a
+> A → a  
+> B → b
+> ```
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> **Elim. var. no Positivas**  
+> No hay  
+> **Elim. var. no Alcanzables**  
+> No hay
+> 
+> </td><td></td><td style="vertical-align: top;">
+> 
+> **Resultado Final**
+> 
+> ```
+> S → AX ∣ BY
+> X → SB | b
+> Y → SA | a
+> A → a  
+> B → b
+> ```
+> 
+> </td></tr></table>
 
 <font color="red">**Falta**</font>
 12. Diseñar una gramática regular para reconocer números binarios múltiplos de 3.
